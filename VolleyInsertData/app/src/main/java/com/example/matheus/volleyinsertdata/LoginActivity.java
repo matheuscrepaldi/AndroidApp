@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if(response.trim().equals("success")){
+                        if(response.trim().equals("Login efetuado")){
                             openProfile();
                         }else{
                             Toast.makeText(LoginActivity.this,response,Toast.LENGTH_LONG).show();
