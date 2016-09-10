@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String REGISTER_URL = "http://192.168.56.1/tcc/ws/volleyRegister.php";
+    private static final String REGISTER_URL = "http://192.168.56.1/tcc/sistema/ws/volleyRegister.php";
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";

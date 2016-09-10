@@ -87,8 +87,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void openProfile(){
-        Intent intent = new Intent(this, ActivityUserProfile.class);
-        intent.putExtra(KEY_USERNAME, username);
+        Intent intent = new Intent(this, Mapa.class);
+        //intent.putExtra(KEY_USERNAME, username);
         startActivity(intent);
     }
 
