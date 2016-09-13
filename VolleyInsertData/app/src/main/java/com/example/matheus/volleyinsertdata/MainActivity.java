@@ -22,6 +22,10 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.appevents.internal.Constants;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     public static final String LOGIN_URL = "http://192.168.56.1/tcc/ws/volleyLogin.php";
@@ -40,7 +44,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
+
+
+
 
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -53,11 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView.setOnClickListener(this);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
+    /*public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_actionbar, menu);
         return true;
-    }
+    }*/
 
 
     private void userLogin() {
