@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".RegisterActivity">
+
 
     <ImageView
         android:layout_width="wrap_content"
@@ -16,8 +15,6 @@
         android:layout_gravity="center_horizontal"
         android:src="@drawable/vcprefeito"/>
 
-
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,6 +22,12 @@
         android:hint="Usuário"
         android:height="50dp" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextEmail"
+        android:hint="E-mail"
+        android:height="50dp" />
 
 
     <EditText
@@ -38,22 +41,20 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Entrar"
+        android:text="Registrar-se"
+        android:id="@+id/buttonRegister"
+        android:height="50dp"
+        android:background="@color/azulPadrao"
+        android:textColor="@color/branco" />
+
+   <!-- <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logar"
         android:id="@+id/buttonLogin"
         android:background="@color/azulPadrao"
         android:textColor="@color/branco"
-        android:height="50dp" />
+        android:height="50dp" /> -->
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Não possui uma conta? Registrar-se"
-        android:id="@+id/linkRegistrar"
-        android:layout_gravity="center_horizontal"
-        android:height="50dp"
-        android:gravity="bottom"
-        android:clickable="true"
-        android:textColor="@color/azulPadrao"/>
 
 </LinearLayout>
