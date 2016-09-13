@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -37,7 +38,22 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+    //================================== Pega Posição por GPS ==================================
     @Override
+    public void onMapReady(GoogleMap map) {
+        mMap = map;
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.889,-87.622),18));
+
+        map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.mega)).anchor(0.0f, 1.0f).position(
+                new LatLng(41.889,-87.622)));
+
+        map.addMarker(new MarkerOptions().position(new LatLng(0,0)).title("Marker"));
+
+
+    }
+    //==========================================================================================
+    /*@Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
@@ -45,5 +61,5 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         LatLng local = new LatLng(-21.399, -50.477);
         mMap.addMarker(new MarkerOptions().position(local).title("Você está aqui!"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
-    }
+    }*/
 }
