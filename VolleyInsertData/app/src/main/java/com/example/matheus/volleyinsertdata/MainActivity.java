@@ -28,7 +28,7 @@ import com.facebook.appevents.internal.Constants;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    public static final String LOGIN_URL = "http://192.168.56.1/tcc/ws/volleyLogin.php";
+    public static final String LOGIN_URL = "http://192.168.2.37/TCC/ws/volleyLogin.php";
 
     public static final String KEY_USERNAME="username";
     public static final String KEY_PASSWORD="password";
@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void openProfile(){
-        Intent intent = new Intent(this, ActivityUserProfile.class);
-        intent.putExtra(KEY_USERNAME, username);
+        Intent intent = new Intent(this, Mapa.class);
+        //intent.putExtra(KEY_USERNAME, username);
         startActivity(intent);
     }
 
