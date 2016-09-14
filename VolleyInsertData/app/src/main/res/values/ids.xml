@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="latitude" type="id" />
+    <item name="longitude" type="id" />
+    <item name="Acuracy" type="id" />
+</resources>
