@@ -22,13 +22,18 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.appevents.internal.Constants;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    public static final String LOGIN_URL = "http://192.168.2.37/TCC/ws/volleyLogin.php";
+    public static final String LOGIN_URL = "http://192.168.0.5/tcc/ws/volleyLogin.php";
 
     public static final String KEY_USERNAME="username";
     public static final String KEY_PASSWORD="password";
@@ -37,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText editTextPassword;
     private Button buttonLogin;
     private TextView textView;
-
+    private LoginButton loginButton; //botao do facebook
+    private CallbackManager callbackManager; //callback do facebook
+    private TextView info;
     private String username;
     private String password;
 
@@ -45,11 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
 
-
-
+        loginButton = (LoginButton)findViewById(R.id.login_button); //pega botao do facebook
+        info = (TextView)findViewById(R.id.info);
 
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -110,16 +118,57 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public void onClick(View v) {
+
+        //se clicar para logar
         if(v == buttonLogin){
             userLogin();
         }
 
+        //se clicar para registrar usuario
         if(v == textView){
             Intent intent = new Intent(this, RegisterActivity.class);
             //intent.putExtra(KEY_USERNAME, username);
             startActivity(intent);
 
+        }
+
+        //se clicar no botao do facebook
+        if(v == loginButton){
+
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+
+
+
+                    info.setText(
+                            "User ID: "
+                                    + loginResult.getAccessToken().getUserId()
+                                    + "\n" +
+                                    "Auth Token: "
+                                    + loginResult.getAccessToken().getToken()
+                    );
+
+                }
+
+                @Override
+                public void onCancel() {
+
+                    info.setText("Login attempt canceled.");
+                }
+
+                @Override
+                public void onError(FacebookException e) {
+
+                    info.setText("Login attempt failed.");
+                }
+            });
         }
     }
 

@@ -64,4 +64,13 @@
         android:clickable="true"
         android:textColor="@color/azulPadrao"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:textSize="18sp"
+        />
+
 </LinearLayout>
