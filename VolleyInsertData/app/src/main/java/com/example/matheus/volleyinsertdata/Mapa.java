@@ -3,26 +3,29 @@ package com.example.matheus.volleyinsertdata;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
+
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.plus.Plus;
 
 public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
-    //private GoogleMap mMap;
+    private GoogleMap mMap;
 
 
     private GoogleApiClient client;
@@ -35,6 +38,8 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
 
         Intent intent = getIntent();
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -57,6 +62,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
     //==========================================================================================
 
+
     //================================== Pega Posição por GPS ==================================
     @Override
     public void onMapReady(GoogleMap map) {
@@ -64,7 +70,10 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
         Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-        //mMap = map;
+        mMap = map;
+
+        mMap.setMyLocationEnabled(true);
+
          double lat = location.getLatitude();
          double lon =  location.getLongitude();
 
