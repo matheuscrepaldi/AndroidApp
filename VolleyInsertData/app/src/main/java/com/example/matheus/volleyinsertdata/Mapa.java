@@ -67,22 +67,22 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
 
-        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        //LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        //Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         mMap = map;
 
         mMap.setMyLocationEnabled(true);
 
-         double lat = location.getLatitude();
-         double lon =  location.getLongitude();
+         //double lat = location.getLatitude();
+         //double lon =  location.getLongitude();
 
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.889, -87.622), 18));
 
         map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.drawable.mega)).anchor(0.0f, 1.0f).position(
-                new LatLng(lat, lon)));
+                new LatLng(0, 0)));
 
-        map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        //map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Você está aqui"));
 
     }
 
