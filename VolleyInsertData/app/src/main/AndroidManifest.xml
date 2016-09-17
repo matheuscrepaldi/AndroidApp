@@ -10,6 +10,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name="com.example.matheus.volleyinsertdata.AppControlador"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -30,6 +31,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ActivityUserProfile" />
         <activity android:name=".DenunciaActivity" />
+        <activity android:name=".CategoriaActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
