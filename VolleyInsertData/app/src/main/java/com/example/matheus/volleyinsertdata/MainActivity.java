@@ -1,6 +1,7 @@
 package com.example.matheus.volleyinsertdata;
 
 import android.*;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -27,6 +28,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +39,8 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
@@ -43,11 +48,14 @@ import com.facebook.appevents.internal.Constants;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import me.drakeet.materialdialog.MaterialDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,LocationListener {
 
-    public static final String LOGIN_URL = "http://192.168.1.33/tcc/ws/volleyLogin.php";
+    public static final String LOGIN_URL = "http://192.168.2.37/TCC/ws/volleyLogin.php";
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
@@ -135,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void onError(FacebookException e) {
             }
         };
+
         loginButton.setReadPermissions("user_friends");
         loginButton.registerCallback(callbackManager, callback);
     }

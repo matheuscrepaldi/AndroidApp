@@ -61,8 +61,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         longitude = intent.getDoubleExtra("longitude", 0);
 
     }
-
-
     /**
      * Método que será acionado quando o mapa estiver carregado e pronto
      */
@@ -191,13 +189,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
-
-
-
-
-
-
-
 /**
  * metodo volley responsavel por fazer a consulta ao banco de dados
  */
@@ -218,6 +209,4 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         //Volley.newRequestQueue(vContext).add(jsonObjReq);
 
     }
-
-
 }

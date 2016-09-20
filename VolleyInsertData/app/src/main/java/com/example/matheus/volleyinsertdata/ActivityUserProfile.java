@@ -1,6 +1,8 @@
 package com.example.matheus.volleyinsertdata;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.annotation.StringDef;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,8 +10,16 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ActivityUserProfile extends AppCompatActivity {
     private TextView textView;
@@ -42,19 +52,24 @@ public class ActivityUserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_user_profile);
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         Bundle inBundle = getIntent().getExtras();
         String name = inBundle.get("name").toString();
         String surname = inBundle.get("surname").toString();
         String imageUrl = inBundle.get("imageUrl").toString();
         String token = inBundle.get("token").toString();
+        String email = inBundle.get("email").toString();
+
         new DownloadImage((ImageView)findViewById(R.id.profileImage)).execute(imageUrl);
         TextView nameView = (TextView)findViewById(R.id.nameAndSurname);
+        TextView emailView = (TextView)findViewById(R.id.email);
         TextView tokenView = (TextView) findViewById(R.id.token);
+
         nameView.setText(name + " " + surname);
+        emailView.setText(email + " ");
         tokenView.setText(token);
     }
-
 
 
 

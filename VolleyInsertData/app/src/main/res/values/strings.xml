@@ -2,6 +2,7 @@
     <string name="app_name">VcPrefeito</string>
     <string name="title_activity_denuncia">DenunciaActivity</string>
     <string name="facebook_app_id">1120295274701582</string>
+    <string name="google_app_id">vcprefeito</string>
     <string name="title_activity_mapa">Map</string>
     <string name="action_settings">LogOut</string>
 </resources>
