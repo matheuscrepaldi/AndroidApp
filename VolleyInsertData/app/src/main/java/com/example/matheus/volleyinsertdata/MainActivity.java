@@ -241,6 +241,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             main.putExtra("name", profile.getFirstName());
             main.putExtra("surname", profile.getLastName());
             main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
+            main.putExtra("token", profile.getId());
+
             startActivity(main);
         }
     }
