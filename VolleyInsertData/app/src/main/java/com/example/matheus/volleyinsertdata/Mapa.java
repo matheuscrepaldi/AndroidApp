@@ -145,8 +145,8 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                 if (!temInfo) {
                     /** LIMITES pega os limites da tela, chamados de BOUNDS */
                     LIMITES = mMap.getProjection().getVisibleRegion().latLngBounds;
-                    //Float mapZoom = mMap.getCameraPosition().zoom;
-                    //LatLng latlong = mMap.getCameraPosition().target;
+                    Float mapZoom = mMap.getCameraPosition().zoom;
+                    LatLng latlong = mMap.getCameraPosition().target;
 
                     /** atribui as variaveis os valores de coordenadas dos limites da tela */
                     latitudenorte = LIMITES.northeast.latitude;
@@ -154,7 +154,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                     longitudenorte = LIMITES.northeast.longitude;
                     longitudesul = LIMITES.southwest.longitude;
 
-                    //mapZoom = mMap.getCameraPosition().zoom;
+                    mapZoom = mMap.getCameraPosition().zoom;
 
                     /** chama o metodo da lib volley, passando as coordenadas completas da tela como parametros */
                     selecionarTodos(getApplicationContext(), latitudenorte, latitudesul, longitudenorte, longitudesul);
