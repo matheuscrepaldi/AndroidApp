@@ -30,10 +30,14 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.appevents.internal.Constants;
 import com.facebook.login.LoginResult;
@@ -41,9 +45,9 @@ import com.facebook.login.widget.LoginButton;
 
 import me.drakeet.materialdialog.MaterialDialog;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,LocationListener {
 
-    public static final String LOGIN_URL = "http://192.168.0.14/tcc/ws/volleyLogin.php";
+    public static final String LOGIN_URL = "http://192.168.204.5/tcc/ws/volleyLogin.php";
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
@@ -54,19 +58,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textView;
     private LoginButton loginButton; //botao do facebook
     private CallbackManager callbackManager; //callback do facebook
+    private AccessTokenTracker accessTokenTracker;
+    private ProfileTracker profileTracker;
     private TextView info;
     private String username;
     private String password;
+
+    //Facebook login button
+    private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
+        @Override
+        public void onSuccess(LoginResult loginResult) {
+            Profile profile = Profile.getCurrentProfile();
+            nextActivity(profile);
+        }
+
+        @Override
+        public void onCancel() {
+        }
+
+        @Override
+        public void onError(FacebookException e) {
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldToken, AccessToken newToken) {
+            }
+        };
+
+        profileTracker = new ProfileTracker() {
+            @Override
+            protected void onCurrentProfileChanged(Profile oldProfile, Profile newProfile) {
+                nextActivity(newProfile);
+            }
+        };
+        accessTokenTracker.startTracking();
+        profileTracker.startTracking();
+
         AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_main);
 
-        loginButton = (LoginButton) findViewById(R.id.login_button); //pega botao do facebook
+        //loginButton = (LoginButton) findViewById(R.id.login_button); //pega botao do facebook
         info = (TextView) findViewById(R.id.info);
 
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
@@ -78,6 +116,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         textView = (TextView) findViewById(R.id.linkRegistrar);
         textView.setOnClickListener(this);
+
+        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
+        callback = new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                Profile profile = Profile.getCurrentProfile();
+                nextActivity(profile);
+                Toast.makeText(getApplicationContext(), "Logging in...", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+            }
+        };
+        loginButton.setReadPermissions("user_friends");
+        loginButton.registerCallback(callbackManager, callback);
     }
 
     /*public boolean onCreateOptionsMenu(Menu menu) {
@@ -130,11 +189,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
     public void onClick(View v) {
 
         //se clicar para logar
@@ -150,38 +204,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        //se clicar no botao do facebook
-        if (v == loginButton) {
+    }
 
-            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //Facebook login
+        Profile profile = Profile.getCurrentProfile();
+        nextActivity(profile);
+    }
 
+    @Override
+    protected void onPause() {
 
-                    info.setText(
-                            "User ID: "
-                                    + loginResult.getAccessToken().getUserId()
-                                    + "\n" +
-                                    "Auth Token: "
-                                    + loginResult.getAccessToken().getToken()
-                    );
+        super.onPause();
+    }
 
-                }
+    protected void onStop() {
+        super.onStop();
+        //Facebook login
+        accessTokenTracker.stopTracking();
+        profileTracker.stopTracking();
+    }
 
-                @Override
-                public void onCancel() {
+    @Override
+    protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
+        super.onActivityResult(requestCode, responseCode, intent);
+        //Facebook login
+        callbackManager.onActivityResult(requestCode, responseCode, intent);
 
-                    info.setText("Login attempt canceled.");
-                }
+    }
 
-                @Override
-                public void onError(FacebookException e) {
-
-                    info.setText("Login attempt failed.");
-                }
-            });
+    private void nextActivity(Profile profile){
+        if(profile != null){
+            Intent main = new Intent(MainActivity.this, ActivityUserProfile.class);
+            main.putExtra("name", profile.getFirstName());
+            main.putExtra("surname", profile.getLastName());
+            main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
+            startActivity(main);
         }
     }
+
+
 
     //=================================AÇÕES DO MAPA==========================================
     MaterialDialog mMaterialDialog;
@@ -277,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             if (isGPSEnabled) {
                 if (location == null) {
-                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, (LocationListener) this);
+                    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0, this);
                     Log.d(TAG, "Localização pelo GPS");
                     location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     if (location != null) {

@@ -179,6 +179,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     public void marcaLocalizacaoAtual(Boolean primeiravez) {
 
         LatLng locAtual = new LatLng(latitude, longitude);
+
         Marker marker;
         /** adiciona o marcador */
         marker = mMap.addMarker(new MarkerOptions().position(locAtual).title("Voce está aqui!"));
@@ -190,9 +191,16 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
 
     }
 
-    /**
-     * metodo volley responsavel por fazer a consulta ao banco de dados
-     */
+
+
+
+
+
+
+
+/**
+ * metodo volley responsavel por fazer a consulta ao banco de dados
+ */
     public void selecionarTodos(final Context vContext, double latN, double latS, double lgtN, double lgtS) {
 
         /** atribuição dos parametros que serão enviados via POST ao webservices */
@@ -210,4 +218,6 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         //Volley.newRequestQueue(vContext).add(jsonObjReq);
 
     }
+
+
 }
