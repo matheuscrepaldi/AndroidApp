@@ -59,15 +59,15 @@ public class ActivityUserProfile extends AppCompatActivity {
         String surname = inBundle.get("surname").toString();
         String imageUrl = inBundle.get("imageUrl").toString();
         String token = inBundle.get("token").toString();
-        String email = inBundle.get("email").toString();
+
 
         new DownloadImage((ImageView)findViewById(R.id.profileImage)).execute(imageUrl);
         TextView nameView = (TextView)findViewById(R.id.nameAndSurname);
-        TextView emailView = (TextView)findViewById(R.id.email);
+
         TextView tokenView = (TextView) findViewById(R.id.token);
 
         nameView.setText(name + " " + surname);
-        emailView.setText(email + " ");
+
         tokenView.setText(token);
     }
 

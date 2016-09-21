@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         };
 
-        loginButton.setReadPermissions("user_friends");
+        loginButton.setReadPermissions(Arrays.asList("user_friends", "email"));
         loginButton.registerCallback(callbackManager, callback);
     }
 
@@ -251,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             main.putExtra("surname", profile.getLastName());
             main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
             main.putExtra("token", profile.getId());
+
 
             startActivity(main);
         }
