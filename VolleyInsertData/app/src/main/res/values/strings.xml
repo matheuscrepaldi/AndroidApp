@@ -11,5 +11,5 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_menu_close" />
     <string name="title_menu_open" />
-    <string name="title_activity_menu_principal">MenuPrincipal</string>
+    <string name="title_activity_menu_principal">Menu Principal</string>
 </resources>

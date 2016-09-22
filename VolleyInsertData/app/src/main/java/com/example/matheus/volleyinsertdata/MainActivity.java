@@ -55,7 +55,7 @@ import me.drakeet.materialdialog.MaterialDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,LocationListener {
 
-    public static final String LOGIN_URL = "http://192.168.0.5/tcc/ws/volleyLogin.php";
+    public static final String LOGIN_URL = "http://192.168.2.37/TCC/ws/volleyLogin.php";
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
