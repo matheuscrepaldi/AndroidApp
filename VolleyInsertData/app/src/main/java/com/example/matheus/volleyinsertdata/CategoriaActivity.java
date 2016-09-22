@@ -84,7 +84,7 @@ public class CategoriaActivity extends Activity {
                                 cat.setDesc_categoria(obj.getString("desc_categoria"));
                                 cat.setImg_categoria(obj.getString("img_categoria"));
 
-                                // adding movie to movies array
+                                // add as categorias para o array de categorias
                                 movieList.add(cat);
 
                             } catch (JSONException e) {

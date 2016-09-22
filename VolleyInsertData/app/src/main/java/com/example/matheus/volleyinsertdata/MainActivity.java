@@ -55,7 +55,7 @@ import me.drakeet.materialdialog.MaterialDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,LocationListener {
 
-    public static final String LOGIN_URL = "http://192.168.2.37/TCC/ws/volleyLogin.php";
+    public static final String LOGIN_URL = "http://192.168.0.5/tcc/ws/volleyLogin.php";
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView info;
     private String username;
     private String password;
+    private Button btnDenuncia;
 
     //Facebook login button
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
@@ -124,6 +125,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         textView = (TextView) findViewById(R.id.linkRegistrar);
         textView.setOnClickListener(this);
+
+        btnDenuncia = (Button) findViewById(R.id.denuncia);
+        btnDenuncia.setOnClickListener(this);
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         callback = new FacebookCallback<LoginResult>() {
@@ -208,6 +212,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //se clicar para registrar usuario
         if (v == textView) {
             Intent intent = new Intent(this, RegisterActivity.class);
+            //intent.putExtra(KEY_USERNAME, username);
+            startActivity(intent);
+
+        }
+
+        if (v == btnDenuncia) {
+            Intent intent = new Intent(this, DenunciaActivity.class);
             //intent.putExtra(KEY_USERNAME, username);
             startActivity(intent);
 
