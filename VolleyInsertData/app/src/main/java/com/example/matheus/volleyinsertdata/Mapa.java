@@ -1,16 +1,26 @@
 package com.example.matheus.volleyinsertdata;
 
 import android.Manifest;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.location.Location;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,8 +40,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.internal.zzf;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Mapa extends FragmentActivity implements OnMapReadyCallback {
@@ -42,6 +54,9 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     private LatLngBounds LIMITES;
     private Boolean temInfo = false;
     private double latitudesul, latitudenorte, longitudesul, longitudenorte;
+    private DrawerLayout mDrawerLayout;
+    private ListView mListDrawer;
+    private ActionBarDrawerToggle mToggle;
     //ESTA VARIAVEL ARMAZENA O ENDEREÇO DO SEU WEB SERVICES
     //public static final String END_WEBSERVICE = "http://192.168.0.14/tcc/ws/volleyLogin";
     //"http://localhost....."
@@ -51,6 +66,8 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
+
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -61,6 +78,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         longitude = intent.getDoubleExtra("longitude", 0);
 
     }
+
     /**
      * Método que será acionado quando o mapa estiver carregado e pronto
      */

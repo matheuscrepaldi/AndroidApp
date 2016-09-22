@@ -4,5 +4,12 @@
     <string name="facebook_app_id">1120295274701582</string>
     <string name="google_app_id">vcprefeito</string>
     <string name="title_activity_mapa">Map</string>
-    <string name="action_settings">LogOut</string>
+    <string name="action_settings">Sair</string>
+    <string name="title_activity_menu_mapa">MenuMapa</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_menu_close" />
+    <string name="title_menu_open" />
+    <string name="title_activity_menu_principal">MenuPrincipal</string>
 </resources>

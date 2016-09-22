@@ -196,9 +196,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void openProfile() {
 
         //intent.putExtra(KEY_USERNAME, username);
-        //Intent intent = new Intent(this, Mapa.class);
-        //startActivity(intent);
-        chamaLocalizacaoAtual();
+        Intent intent = new Intent(this, MenuPrincipal.class);
+        startActivity(intent);
+        //chamaLocalizacaoAtual();
     }
 
     @Override
