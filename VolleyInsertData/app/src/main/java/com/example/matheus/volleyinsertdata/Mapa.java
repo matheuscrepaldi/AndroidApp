@@ -46,7 +46,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Mapa extends FragmentActivity implements OnMapReadyCallback {
+public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private double latitude;
@@ -63,17 +63,17 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
     //"http://www.seudominio.........."
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mapa);
+        //setContentView(R.layout.activity_mapa);
 
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        //SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        getMapAsync(this);
 
         /** pega latitude e longidute que são passados como Extras via intent, pela MainActivity */
-        Intent intent = getIntent();
+        Intent intent = getActivity().getIntent();
         latitude = intent.getDoubleExtra("latitude", 0);
         longitude = intent.getDoubleExtra("longitude", 0);
 
@@ -94,7 +94,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
         /** atribui ao mapa todos os gestos (incluindo o ZOOM com movimento de "pinça") */
         googleMap.getUiSettings().setAllGesturesEnabled(true);
 
-        googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
         /** chamada ao metodo que adiciona um marcador na localização atual, passando TRUE como parametro
          * para mostrar o infowindow e mover a camera para a posição que acaba de ser adicionada
          * se o parametro for FALSE, o metodo apenas adiciona o marcador */
@@ -173,7 +173,7 @@ public class Mapa extends FragmentActivity implements OnMapReadyCallback {
                     mapZoom = mMap.getCameraPosition().zoom;
 
                     /** chama o metodo da lib volley, passando as coordenadas completas da tela como parametros */
-                    selecionarTodos(getApplicationContext(), latitudenorte, latitudesul, longitudenorte, longitudesul);
+                    selecionarTodos(getActivity().getApplicationContext(), latitudenorte, latitudesul, longitudenorte, longitudesul);
 
                 }
 
