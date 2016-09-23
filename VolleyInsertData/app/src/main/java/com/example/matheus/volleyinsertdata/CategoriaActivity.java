@@ -42,7 +42,7 @@ public class CategoriaActivity extends Activity {
 
     private static final String TAG = CategoriaActivity.class.getSimpleName();
 
-    public static final String url = "http://192.168.201.17/tcc/ws/volleyCategoria.php";
+    public static final String url = "http://192.168.0.5/tcc/ws/volleyCategoria.php";
     private ProgressDialog pDialog;
     private List<ClasseCategoria> movieList = new ArrayList<ClasseCategoria>();
     private ListView listView;

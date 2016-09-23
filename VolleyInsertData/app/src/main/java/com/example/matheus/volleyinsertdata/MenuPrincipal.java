@@ -15,6 +15,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.facebook.FacebookSdk;
 
 public class MenuPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -23,9 +27,17 @@ public class MenuPrincipal extends AppCompatActivity implements NavigationView.O
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_menu_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //resultados do login do facebook
+        Bundle inBundle = getIntent().getExtras();
+        String name = inBundle.get("name").toString();
+        String surname = inBundle.get("surname").toString();
+        String imageUrl = inBundle.get("imageUrl").toString();
+        String token = inBundle.get("token").toString();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -40,6 +52,13 @@ public class MenuPrincipal extends AppCompatActivity implements NavigationView.O
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmento, new Mapa(), "MapaActivity");
         fragmentTransaction.commitAllowingStateLoss();
+
+        View headerLayout = navigationView.inflateHeaderView(R.layout.nav_header_menu_principal);
+
+        TextView user_name = (TextView) headerLayout.findViewById(R.id.user_name);
+        new DownloadImage((ImageView) headerLayout.findViewById(R.id.imageView)).execute(imageUrl);
+
+        user_name.setText(name + " " + surname);
     }
 
     @Override

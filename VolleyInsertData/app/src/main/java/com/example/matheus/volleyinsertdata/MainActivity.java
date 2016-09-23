@@ -55,7 +55,7 @@ import me.drakeet.materialdialog.MaterialDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,LocationListener {
 
-    public static final String LOGIN_URL = "http://192.168.203.17/tcc/ws/volleyLogin.php";
+    public static final String LOGIN_URL = "http://192.168.0.5/tcc/ws/volleyLogin.php";
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
@@ -197,6 +197,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //intent.putExtra(KEY_USERNAME, username);
         Intent intent = new Intent(this, MenuPrincipal.class);
+        intent.putExtra("username", username);
+        intent.putExtra("password", password);
         startActivity(intent);
         //chamaLocalizacaoAtual();
     }
@@ -257,10 +259,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void nextActivity(Profile profile){
         if(profile != null){
-            Intent main = new Intent(MainActivity.this, ActivityUserProfile.class);
+            Intent main = new Intent(MainActivity.this, MenuPrincipal.class);
             main.putExtra("name", profile.getFirstName());
             main.putExtra("surname", profile.getLastName());
-            main.putExtra("imageUrl", profile.getProfilePictureUri(200,200).toString());
+            main.putExtra("imageUrl", profile.getProfilePictureUri(100,100).toString());
             main.putExtra("token", profile.getId());
 
 

@@ -52,7 +52,7 @@ public class ActivityUserProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_user_profile);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+       // FacebookSdk.sdkInitialize(getApplicationContext());
 
         Bundle inBundle = getIntent().getExtras();
         String name = inBundle.get("name").toString();
