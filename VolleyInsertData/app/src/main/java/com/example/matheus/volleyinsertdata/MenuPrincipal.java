@@ -1,5 +1,6 @@
 package com.example.matheus.volleyinsertdata;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -81,6 +82,8 @@ public class MenuPrincipal extends AppCompatActivity implements NavigationView.O
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Intent intent = new Intent(this, DenunciaActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
