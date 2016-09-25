@@ -54,7 +54,7 @@ public class CategoriaActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listViewCategorias);
         adapter = new CustomListAdapter(this, movieList);
         listView.setAdapter(adapter);
 

@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView info;
     private String username;
     private String password;
-    private Button btnDenuncia;
+
 
     //Facebook login button
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
@@ -126,8 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView = (TextView) findViewById(R.id.linkRegistrar);
         textView.setOnClickListener(this);
 
-        btnDenuncia = (Button) findViewById(R.id.denuncia);
-        btnDenuncia.setOnClickListener(this);
+
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
         callback = new FacebookCallback<LoginResult>() {
@@ -219,12 +218,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
-        if (v == btnDenuncia) {
-            Intent intent = new Intent(this, DenunciaActivity.class);
-            //intent.putExtra(KEY_USERNAME, username);
-            startActivity(intent);
-
-        }
 
     }
 

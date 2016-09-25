@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
 
 public class MenuPrincipal extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -78,6 +79,13 @@ public class MenuPrincipal extends AppCompatActivity implements NavigationView.O
         return true;
     }
 
+    public void logout(){
+        LoginManager.getInstance().logOut();
+        Intent login = new Intent(MenuPrincipal.this, MainActivity.class);
+        startActivity(login);
+        finish();
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -87,6 +95,7 @@ public class MenuPrincipal extends AppCompatActivity implements NavigationView.O
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            logout();
             return true;
         }
 

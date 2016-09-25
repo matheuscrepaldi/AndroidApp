@@ -73,11 +73,6 @@
         android:textSize="18sp"
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/denuncia"
-        android:layout_gravity="center_horizontal" />
+
 
 </LinearLayout>

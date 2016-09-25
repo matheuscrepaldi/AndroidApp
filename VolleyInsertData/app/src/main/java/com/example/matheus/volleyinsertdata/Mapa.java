@@ -42,6 +42,10 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.internal.zzf;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,9 +58,11 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
     private LatLngBounds LIMITES;
     private Boolean temInfo = false;
     private double latitudesul, latitudenorte, longitudesul, longitudenorte;
+    private double latN, latS, lgtN, lgtS;
     private DrawerLayout mDrawerLayout;
     private ListView mListDrawer;
     private ActionBarDrawerToggle mToggle;
+    public static final String LOGIN_URL = "http://192.168.0.5/tcc/ws/volleyDenuncia.php";
     //ESTA VARIAVEL ARMAZENA O ENDEREÇO DO SEU WEB SERVICES
     //public static final String END_WEBSERVICE = "http://192.168.0.14/tcc/ws/volleyLogin";
     //"http://localhost....."
@@ -173,7 +179,7 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
                     mapZoom = mMap.getCameraPosition().zoom;
 
                     /** chama o metodo da lib volley, passando as coordenadas completas da tela como parametros */
-                    selecionarTodos(getActivity().getApplicationContext(), latitudenorte, latitudesul, longitudenorte, longitudesul);
+                    selecionarTodos(getActivity().getApplicationContext());
 
                 }
 
@@ -210,21 +216,61 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
 /**
  * metodo volley responsavel por fazer a consulta ao banco de dados
  */
-    public void selecionarTodos(final Context vContext, double latN, double latS, double lgtN, double lgtS) {
+    public void selecionarTodos(final Context vContext) {
 
         /** atribuição dos parametros que serão enviados via POST ao webservices */
         Map<String, String> par = new HashMap<>();
-        par.put("consultar", "cliente");
-        par.put("acao", "selecionarTodosArea");
-        par.put("latN", String.valueOf(latN));
-        par.put("latS", String.valueOf(latS));
-        par.put("lgtN", String.valueOf(lgtN));
-        par.put("lgtS", String.valueOf(lgtS));
+
+        par.put("latN", String.valueOf(latitudenorte));
+        par.put("latS", String.valueOf(latitudesul));
+        par.put("lgtN", String.valueOf(longitudenorte));
+        par.put("lgtS", String.valueOf(longitudesul));
 
         /** criação de um novo request */
+        CustomRequest jsonObjReq = new CustomRequest(Request.Method.POST,
+                LOGIN_URL, par,
+                new Response.Listener<JSONArray>() {
+                    /** dentro do metodo on response, é que podemos tratar o codigo que deve ser executano, em nosso caso,
+                     * estamos limpando os marcadores do mapa, adicionando o marcador na localização atual e adicionando marcadores
+                     * referentes a cada registro do banco de dados*/
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        /** limpa os marcadores atuais*/
+                        mMap.clear();
+                        /** adiciona marcador na localização atual */
+                        marcaLocalizacaoAtual(false);
+                        /** laço que executa a quantidade de objetos respondidos no Json, pelo web service */
+                        for(int i=0;i<response.length();i++) {
+                            JSONObject e = new JSONObject();
+                            try {
+                                e = response.getJSONObject(i);
+                                /** o objeto "e" agora é um objeto retornado de nosso web serives, nas linhas abaixo
+                                 * é utilizado e.getDouble("campo"), mas poderia ser e.getString, getInt, de acordo com o valor
+                                 * esperado, e o campo nada mais é que o indice do nosso Json. */
+                                LatLng localizacaoCli = new LatLng(e.getDouble("latitude"), e.getDouble("longitude"));
+                                mMap.addMarker(new MarkerOptions().position(localizacaoCli)
+
+                                        .title("este é o titulo")//.title(e.getString("este é o titulo"))
+                                        .snippet(e.getString("rua_den") + ", " + e.getString("num_den")));
+
+                            } catch (JSONException e1) {
+
+                            }
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            /** se o metodo onResponse nao consegue ser executado, seja por falha de rede, alguma sintaxe errada
+             * nossa requisição é direcionada ao metodo onErrorResponse, aqui podemos gerar um Log, ou até mesmo
+             * tratar as exceptions */
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("", "Error: " + error.getMessage());
+            }
+        });
 
         /** adiciona nossa requisição para a fila de requisições */
-        //Volley.newRequestQueue(vContext).add(jsonObjReq);
+        Volley.newRequestQueue(vContext).add(jsonObjReq);
 
     }
 }
