@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra("username", username);
         intent.putExtra("password", password);
         startActivity(intent);
-        //chamaLocalizacaoAtual();
+        chamaLocalizacaoAtual();
     }
 
     @Override
