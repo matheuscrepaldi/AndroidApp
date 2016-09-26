@@ -7,6 +7,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class DenunciaActivity extends AppCompatActivity {
 
-    private EditText data;
+    private EditText data, categoria;
     private int yy;
     private int mm;
     private int dd;
@@ -27,6 +28,7 @@ public class DenunciaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_denuncia);
 
         data = (EditText) findViewById(R.id.data);
+        categoria = (EditText) findViewById(R.id.categoria);
 
         //exibe data atual no campo de data
         final Calendar c = Calendar.getInstance();
@@ -44,7 +46,18 @@ public class DenunciaActivity extends AppCompatActivity {
     public void abrirCategorias(View view) {
 
         Intent intent = new Intent(this, CategoriaActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,0);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intentResultado) {
+        super.onActivityResult(requestCode, resultCode, intentResultado);
+        if (resultCode == RESULT_OK){
+            if (intentResultado.hasExtra("categoria")){
+                ClasseCategoria cat = (ClasseCategoria) intentResultado.getSerializableExtra("categoria");
+                //denu.setcodcat(cat.getcod);
+                categoria.setText(cat.getDesc_categoria());
+            }
+        }
+    }
 }

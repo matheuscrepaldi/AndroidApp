@@ -1,9 +1,11 @@
 package com.example.matheus.volleyinsertdata;
 
+import java.io.Serializable;
+
 /**
  * Created by Matheus on 17/09/2016.
  */
-    public class ClasseCategoria {
+    public class ClasseCategoria implements Serializable {
 
         private long id;
         private String desc_categoria, img_categoria;

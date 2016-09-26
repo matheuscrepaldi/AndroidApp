@@ -58,14 +58,28 @@ public class CategoriaActivity extends Activity {
         adapter = new CustomListAdapter(this, movieList);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView,View view, int i, long l) {
+                //Toast.makeText(getApplicationContext(), "Item = " + i, Toast.LENGTH_SHORT).show();
+                ClasseCategoria c = (ClasseCategoria) adapter.getItem(i);
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("categoria", c);
+                setResult(RESULT_OK, resultIntent);
+                finish();
+                //intent.putExtra("posicao", i);
+                //startActivityForResult(intent, i);
+            }
+        });
+
+
         pDialog = new ProgressDialog(this);
         // Showing progress dialog before making http request
-        pDialog.setMessage("Loading...");
+        pDialog.setMessage("Carregando...");
         pDialog.show();
 
-        // changing action bar color
-       // getActionBar().setBackgroundDrawable(
-             //   new ColorDrawable(Color.parseColor("#1b1b1b")));
+
 
         // Creating volley request obj
         JsonArrayRequest movieReq = new JsonArrayRequest(url,
@@ -80,12 +94,12 @@ public class CategoriaActivity extends Activity {
                             try {
 
                                 JSONObject obj = response.getJSONObject(i);
-                                ClasseCategoria cat = new ClasseCategoria();
-                                cat.setDesc_categoria(obj.getString("desc_categoria"));
-                                cat.setImg_categoria(obj.getString("img_categoria"));
+                                ClasseCategoria movie = new ClasseCategoria();
+                                movie.setDesc_categoria(obj.getString("desc_categoria"));
+                                movie.setImg_categoria(obj.getString("img_categoria"));
 
-                                // add as categorias para o array de categorias
-                                movieList.add(cat);
+                                // adding movie to movies array
+                                movieList.add(movie);
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
