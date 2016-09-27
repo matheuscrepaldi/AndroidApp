@@ -112,15 +112,10 @@ public class MenuPrincipal extends AppCompatActivity implements NavigationView.O
             // Handle the camera action
             Intent intent = new Intent(this, DenunciaActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_manage){
 
         }
 
