@@ -47,11 +47,13 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
     private int mm;
     private int dd;
     private Button buttonChoose;
+    private Button buttonCamera;
     private Button buttonUpload;
     private ImageView imageView2;
     private EditText editTextName;
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1;
+    private int OPEN_CAMERA_REQUEST = 2;
     private String UPLOAD_URL ="http://192.168.0.5/tcc/ws/volleyDenunciaImg.php";
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
@@ -67,11 +69,12 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
         data = (EditText) findViewById(R.id.data);
         categoria = (EditText) findViewById(R.id.categoria);
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
+        buttonCamera = (Button) findViewById(R.id.buttonCamera);
         //buttonUpload = (Button) findViewById(R.id.buttonUpload);
        // editTextName = (EditText) findViewById(R.id.editText);
         imageView2  = (ImageView) findViewById(R.id.imageView2);
         buttonChoose.setOnClickListener(this);
-        //buttonUpload.setOnClickListener(this);
+        buttonCamera.setOnClickListener(this);
 
         //exibe data atual no campo de data
         final Calendar c = Calendar.getInstance();
@@ -153,6 +156,13 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    public void takePhoto()
+    {
+        //Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, OPEN_CAMERA_REQUEST);
+    }
+
 
    // @Override
     public void onClick(View v) {
@@ -160,10 +170,11 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
         if(v == buttonChoose){
             //showFileChooser();
             chamaPermissao();
+
         }
 
-        if(v == buttonUpload){
-            uploadImage();
+        if(v == buttonCamera){
+            chamaPermissaoCamera();
         }
     }
 
@@ -195,6 +206,12 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
                 e.printStackTrace();
             }
         }
+
+        if (requestCode == OPEN_CAMERA_REQUEST && resultCode == RESULT_OK && intentResultado != null && intentResultado.getData() != null) {
+            Bundle extras = intentResultado.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView2.setImageBitmap(imageBitmap);
+        }
     }
 
     public void chamaPermissao() {
@@ -216,6 +233,25 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    public void chamaPermissaoCamera() {
+        Log.i(TAG, "chamaPermissaoCamera()");
+
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)) {
+                callDialog("É preciso a permission ACCESS_FINE_LOCATION para apresentação dos clientes.", new String[]{Manifest.permission.CAMERA});
+            } else {
+
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, REQUEST_PERMISSIONS_CODE);
+            }
+        } else {
+
+            takePhoto();
+        }
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -228,6 +264,12 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
                             && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
 
                         showFileChooser();
+                    }
+
+                    if (permissions[i].equalsIgnoreCase(Manifest.permission.CAMERA)
+                            && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+
+                        takePhoto();
                     }
                 }
         }
