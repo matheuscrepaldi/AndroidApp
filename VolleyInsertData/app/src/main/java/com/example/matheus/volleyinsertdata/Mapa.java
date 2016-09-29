@@ -68,6 +68,24 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
     //"http://localhost....."
     //"http://www.seudominio.........."
 
+    private double latG, lgtG;
+
+    public double getLatG() {
+        return latG;
+    }
+
+    public void setLatG(double latG) {
+        this.latG = latG;
+    }
+
+    public double getLgtG() {
+        return lgtG;
+    }
+
+    public void setLgtG(double lgtG) {
+        this.lgtG = lgtG;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,10 +98,12 @@ public class Mapa extends SupportMapFragment implements OnMapReadyCallback {
 
         /** pega latitude e longidute que são passados como Extras via intent, pela MainActivity */
         Intent intent = getActivity().getIntent();
-        latitude = intent.getDoubleExtra("latitude", 0);
-        longitude = intent.getDoubleExtra("longitude", 0);
+        latitude = getLatG();
+        longitude = getLgtG();
 
     }
+
+
 
     /**
      * Método que será acionado quando o mapa estiver carregado e pronto
