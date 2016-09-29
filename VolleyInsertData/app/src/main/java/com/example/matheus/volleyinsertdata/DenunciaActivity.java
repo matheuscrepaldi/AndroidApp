@@ -49,7 +49,7 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
     private Button buttonChoose;
     private Button buttonCamera;
     private Button buttonUpload;
-    private ImageView imageView2;
+    private ImageView imageView1, imageView2, imageView3, imageView4;
     private EditText editTextName;
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1;
@@ -70,9 +70,10 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
         categoria = (EditText) findViewById(R.id.categoria);
         buttonChoose = (Button) findViewById(R.id.buttonChoose);
         buttonCamera = (Button) findViewById(R.id.buttonCamera);
-        //buttonUpload = (Button) findViewById(R.id.buttonUpload);
-       // editTextName = (EditText) findViewById(R.id.editText);
+        imageView1  = (ImageView) findViewById(R.id.imageView1);
         imageView2  = (ImageView) findViewById(R.id.imageView2);
+        imageView3  = (ImageView) findViewById(R.id.imageView3);
+        imageView4  = (ImageView) findViewById(R.id.imageView4);
         buttonChoose.setOnClickListener(this);
         buttonCamera.setOnClickListener(this);
 
