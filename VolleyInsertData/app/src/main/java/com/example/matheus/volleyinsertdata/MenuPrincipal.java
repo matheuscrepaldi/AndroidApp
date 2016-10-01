@@ -132,6 +132,10 @@ public class MenuPrincipal extends AppCompatActivity implements NavigationView.O
         if (id == R.id.nav_camera) {
             // Handle the camera action
             Intent intent = new Intent(this, DenunciaActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putDouble("latitude", latG);
+            bundle.putDouble("longitude", lgtG);
+            intent.putExtras(bundle);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {

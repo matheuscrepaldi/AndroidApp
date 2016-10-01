@@ -28,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/categoria"
+        android:layout_marginTop="20dp"
         android:layout_weight="1"
         android:onClick="abrirCategorias"
         android:hint="Categoria"
@@ -38,7 +39,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:id="@+id/desc_denuncia"
         android:layout_gravity="center_horizontal"
@@ -47,9 +48,9 @@
         android:inputType="textShortMessage|textMultiLine"
         android:hint="Descrição ..." />
 
-    <ScrollView android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,65 +58,90 @@
 
         <ImageView
             android:id="@+id/imageView1"
-            android:src="@drawable/camera1"
+            android:clickable="true"
+            android:onClick=""
+            android:src="@drawable/camera2"
+            android:longClickable="true"
             android:layout_weight="1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
-            android:minHeight="50dp"
-            android:minWidth="50dp" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:maxHeight="60dp"
+            android:maxWidth="60dp"
+            android:minHeight="60dp"
+            android:minWidth="60dp" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:src="@drawable/camera2"
             android:layout_weight="1"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
-            android:minHeight="50dp"
-            android:minWidth="50dp" />
+            android:longClickable="true"
+            android:visibility="invisible"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:maxHeight="60dp"
+            android:maxWidth="60dp"
+            android:minHeight="60dp"
+            android:minWidth="60dp" />
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
-            android:minHeight="50dp"
-            android:minWidth="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:maxHeight="60dp"
+            android:maxWidth="60dp"
+            android:minHeight="60dp"
+            android:minWidth="60dp"
+            android:longClickable="true"
+            android:visibility="invisible"
             android:id="@+id/imageView3"
-            android:src="@drawable/camera1"
+            android:src="@drawable/camera2"
             android:layout_weight="1" />
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:maxHeight="50dp"
-            android:maxWidth="50dp"
-            android:minHeight="50dp"
-            android:minWidth="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:maxHeight="60dp"
+            android:maxWidth="60dp"
+            android:minHeight="60dp"
+            android:minWidth="60dp"
+            android:longClickable="true"
+            android:visibility="invisible"
             android:id="@+id/imageView4"
             android:src="@drawable/camera2"
             android:layout_weight="1" />
 
     </LinearLayout>
-    </ScrollView>
-
 
     <Button
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Choose Image"
-        android:id="@+id/buttonChoose" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="camera"
-        android:id="@+id/buttonCamera"
-        android:layout_gravity="center_horizontal"
+        android:text="Enviar"
+        android:background="@color/azulPadrao"
+        android:textColor="@color/branco"
+        android:id="@+id/botaoEnviar"
         android:layout_weight="1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/teste"
+        android:layout_weight="1" />
+
+
+    <!-- <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="Choose Image"
+         android:id="@+id/buttonChoose" />
+
+     <Button
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:text="camera"
+         android:id="@+id/buttonCamera"
+         android:layout_gravity="center_horizontal"
+         android:layout_weight="1" /> -->
 
 
 </LinearLayout>
