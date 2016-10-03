@@ -54,13 +54,13 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
     private int dd;
     private TextView teste;
     private String yourAddress, yourCity;
-    private Button buttonUpload;
+    private Button buttonUpload, botaoEnviar;
     private ImageView imageView1, imageView2, imageView3, imageView4;
     private EditText editTextName;
     private Bitmap bitmap;
     private int PICK_IMAGE_REQUEST = 1;
     private int OPEN_CAMERA_REQUEST = 2;
-    private String UPLOAD_URL ="http://192.168.0.5/tcc/ws/volleyDenunciaImg.php";
+    private String UPLOAD_URL = "http://192.168.209.17/tcc/ws/volleyDenunciaImg.php";
     private String KEY_IMAGE = "image";
     private String KEY_NAME = "name";
     public static final String TAG = "LOG";
@@ -80,6 +80,7 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
         imageView2  = (ImageView) findViewById(R.id.imageView2);
         imageView3  = (ImageView) findViewById(R.id.imageView3);
         imageView4  = (ImageView) findViewById(R.id.imageView4);
+        botaoEnviar = (Button) findViewById(R.id.botaoEnviar);
         imageView1.setOnClickListener(this);
         imageView1.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -91,6 +92,7 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
         imageView2.setOnClickListener(this);
         imageView3.setOnClickListener(this);
         imageView4.setOnClickListener(this);
+        botaoEnviar.setOnClickListener(this);
 
 
         final String[] items = new String[] {"Abrir Galeria","Abrir Câmera"};
@@ -186,14 +188,14 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
                 String image = getStringImage(bitmap);
 
                 //Getting Image Name
-                String name = editTextName.getText().toString().trim();
+               // String name = editTextName.getText().toString().trim();
 
                 //Creating parameters
                 Map<String,String> params = new Hashtable<String, String>();
 
                 //Adding parameters
                 params.put(KEY_IMAGE, image);
-                params.put(KEY_NAME, name);
+                //params.put(KEY_NAME, name);
 
                 //returning parameters
                 return params;
@@ -268,6 +270,11 @@ public class DenunciaActivity extends AppCompatActivity implements View.OnClickL
         if(v == imageView4){
 
             dialog.show();
+        }
+
+        if(v == botaoEnviar){
+
+            uploadImage();
         }
     }
 
